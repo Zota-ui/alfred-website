@@ -28,6 +28,10 @@
 
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
+  html, body{
+    max-width:100%;
+    overflow-x:hidden;
+  }
   body{
     margin:0;
     background:var(--cream-50);
@@ -367,7 +371,14 @@
     max-width:640px;
     margin:0 auto;
   }
-  @media (max-width:900px){ .price-grid{grid-template-columns:1fr; max-width:420px; margin:0 auto;} }
+  @media (max-width:900px){
+    .price-grid,
+    .price-grid.two-up{
+      grid-template-columns:1fr;
+      max-width:420px;
+      margin:0 auto;
+    }
+  }
   .price-card{
     border:1px solid var(--cream-200);
     border-radius:18px;
