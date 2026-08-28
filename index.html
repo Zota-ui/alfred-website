@@ -169,7 +169,7 @@
     font-weight:600;
     margin:0 0 14px;
   }
- .hero h1{
+  .hero h1{
     font-family:var(--font-display);
     font-weight:700;
     font-size:clamp(3.1rem, 7.2vw, 5.4rem);
@@ -515,6 +515,167 @@
     .reveal{opacity:1; transform:none; transition:none;}
     html{scroll-behavior:auto;}
   }
+
+  /* --- achievements --- */
+  .achievements{
+    background:var(--cream-50);
+    padding:56px 0 64px;
+    overflow:hidden;
+  }
+  .ach-bg{
+    position:absolute;
+    inset:0;
+    background-image:url('certs/achievements-bg.jpg');
+    background-size:cover;
+    background-position:center;
+    filter:grayscale(70%) sepia(15%);
+    opacity:0.10;
+    z-index:0;
+  }
+  .achievements::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, var(--cream-50), rgba(251,244,233,0.85) 45%, var(--cream-50));
+    z-index:0;
+  }
+  .achievements .wrap{ position:relative; z-index:1; }
+  .achievements .section-head{ margin-bottom:32px; }
+  .trinity-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:0.74rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--maroon-900);
+    background:linear-gradient(135deg, var(--gold-300), var(--gold-500));
+    padding:6px 16px;
+    border-radius:999px;
+    margin:2px 0 14px;
+    box-shadow:0 6px 16px -8px rgba(180,135,63,0.5);
+  }
+  .trinity-badge::before{ content:'\1F396'; font-size:0.9rem; }
+
+  .ach-carousel{
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding:6px 4px 14px;
+  }
+  .ach-carousel::-webkit-scrollbar{ display:none; }
+  .ach-track{
+    display:flex;
+    gap:20px;
+    width:max-content;
+  }
+  .ach-card{
+    position:relative;
+    flex:none;
+    width:220px;
+    height:170px;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--cream-200);
+    background:var(--white);
+    box-shadow:0 10px 24px -16px rgba(62,17,19,0.35);
+    cursor:pointer;
+    padding:0;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .ach-card:hover, .ach-card:focus-visible{
+    transform:translateY(-6px) scale(1.02);
+    box-shadow:var(--shadow);
+    outline:none;
+  }
+  .ach-card img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .4s ease;
+  }
+  .ach-card:hover img{ transform:scale(1.06); }
+  .ach-caption{
+    position:absolute; left:0; right:0; bottom:0;
+    background:linear-gradient(0deg, rgba(62,17,19,0.82), transparent);
+    color:var(--cream-50);
+    font-size:0.72rem;
+    font-weight:600;
+    padding:22px 12px 8px;
+    text-align:left;
+    opacity:0;
+    transform:translateY(6px);
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  .ach-card:hover .ach-caption, .ach-card:focus-visible .ach-caption{
+    opacity:1; transform:none;
+  }
+  .ach-card--placeholder{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px;
+    background:var(--cream-100);
+    border-style:dashed;
+    cursor:default;
+    color:var(--gold-500);
+  }
+  .ach-card--placeholder:hover{ transform:none; box-shadow:none; }
+  .ach-placeholder-icon{ font-size:1.6rem; }
+  .ach-card--placeholder .ach-caption{
+    position:static; background:none; color:var(--ink-700); opacity:1; transform:none;
+    padding:0; text-align:center; font-size:0.75rem;
+  }
+  @media (max-width:640px){
+    .ach-card{ width:170px; height:135px; }
+    .ach-track{ gap:14px; }
+  }
+
+  /* --- lightbox --- */
+  .lightbox{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(20,8,8,0.92);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; visibility:hidden;
+    transition:opacity .25s ease;
+    padding:24px;
+  }
+  .lightbox.open{ opacity:1; visibility:visible; }
+  .lightbox-img{
+    max-width:min(90vw, 900px);
+    max-height:80vh;
+    border-radius:10px;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,0.6);
+  }
+  .lightbox-caption{
+    position:absolute;
+    bottom:28px; left:0; right:0;
+    text-align:center;
+    color:var(--cream-100);
+    font-size:0.9rem;
+    letter-spacing:0.02em;
+  }
+  .lightbox-close, .lightbox-prev, .lightbox-next{
+    position:absolute;
+    background:rgba(251,244,233,0.12);
+    border:1px solid rgba(251,244,233,0.3);
+    color:var(--cream-50);
+    border-radius:50%;
+    width:44px; height:44px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem;
+    cursor:pointer;
+    transition:background .2s ease;
+  }
+  .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover{ background:rgba(251,244,233,0.24); }
+  .lightbox-close{ top:20px; right:20px; }
+  .lightbox-prev{ left:20px; top:50%; transform:translateY(-50%); }
+  .lightbox-next{ right:20px; top:50%; transform:translateY(-50%); }
+  @media (max-width:640px){
+    .lightbox-prev{ left:8px; }
+    .lightbox-next{ right:8px; }
+    .lightbox-close{ top:12px; right:12px; }
+  }
 </style>
 </head>
 <body>
@@ -537,7 +698,7 @@
   <section class="hero">
     <div class="wrap">
       <div>
-       <p class="eyebrow">Keyboard Classes · Hennur Bande</p>
+        <p class="eyebrow">Keyboard Classes · Hennur Bande</p>
         <h1>Symphony</h1>
         <p class="brand-tagline">Create from within.</p>
         <p class="lead">One-on-one, in-person keyboard lessons for every age and skill level — from absolute beginner to confident player — taught patiently by Alfred Zeo S.</p>
@@ -587,6 +748,49 @@
   </section>
 
   <div class="keys-divider reverse" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <section class="section achievements" id="achievements">
+    <div class="ach-bg" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Achievements &amp; Certifications</p>
+        <h2>Recognised on stage and in class</h2>
+        <span class="trinity-badge">Certified by Trinity College London</span>
+        <p>Certified by Trinity College London and recognized through music festivals, competitions, performances, and awards.</p>
+      </div>
+
+      <div class="ach-carousel reveal" id="achCarousel">
+        <div class="ach-track" id="achTrack">
+          <button type="button" class="ach-card" data-index="0">
+            <img src="certs/participation-shine.jpg" alt="Certificate of Participation, Shine For Jeevarathni, 2022" loading="lazy">
+            <span class="ach-caption">Shine For Jeevarathni — 2022</span>
+          </button>
+          <button type="button" class="ach-card" data-index="1">
+            <img src="certs/noel-appreciation.jpg" alt="NOEL Certificate of Appreciation, Christmas Charity Concert, 2022" loading="lazy">
+            <span class="ach-caption">NOEL Christmas Charity Concert — 2022</span>
+          </button>
+          <button type="button" class="ach-card" data-index="2">
+            <img src="certs/sharadha-keyboard.jpg" alt="Sharadha Kalakshetra Keyboard Performance Certificate, 2019" loading="lazy">
+            <span class="ach-caption">Sharadha Kalakshetra, Keyboard — 2019</span>
+          </button>
+          <button type="button" class="ach-card" data-index="3">
+            <img src="certs/carol-winner.jpg" alt="Christmas Carol Competition, 1st Place Winner, 2020" loading="lazy">
+            <span class="ach-caption">Christmas Carol Competition, 1st Place — 2020</span>
+          </button>
+          <button type="button" class="ach-card ach-card--placeholder" disabled>
+            <span class="ach-placeholder-icon">🎖</span>
+            <span class="ach-caption">More coming soon</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="keys-divider" aria-hidden="true">
     <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
@@ -692,7 +896,7 @@
             <a href="https://wa.me/919482719903?text=Hi%20Alfred%2C%20I%27d%20like%20to%20book%20a%20keyboard%20lesson." class="btn btn-outline" style="color:var(--cream-50); border-color:var(--gold-500);" target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </div>
-        <a class="map-placeholder reveal" href="https://www.google.com/maps/search/?api=1&query=%23005%2C+Infant+Grace+Apartment%2C+Hennur+Garden%2C+Hennur+Bande%2C+B%27lore-43" target="_blank" rel="noopener" style="text-decoration:none;">
+        <a class="map-placeholder reveal" href="https://maps.app.goo.gl/wj4Uea8FGzMHvRi4A" target="_blank" rel="noopener" style="text-decoration:none;">
           <span class="pin">📍</span>
           <span>Hennur Garden, Bengaluru</span>
           <span style="text-decoration:underline;">Open in Google Maps →</span>
@@ -717,6 +921,14 @@
   </div>
 </footer>
 
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <button type="button" class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#10094;</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <button type="button" class="lightbox-next" id="lightboxNext" aria-label="Next image">&#10095;</button>
+  <p class="lightbox-caption" id="lightboxCaption"></p>
+</div>
+
 <div class="floaters">
   <a href="https://wa.me/919482719903?text=Hi%20Alfred%2C%20I%27d%20like%20to%20know%20more%20about%20your%20classes." class="floater wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.86 11.86 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.9 11.9 0 0 0 5.63 1.44h.01c6.54 0 11.85-5.3 11.85-11.84 0-3.16-1.23-6.13-3.37-8.44ZM12.04 21.4h-.01a9.6 9.6 0 0 1-4.89-1.34l-.35-.21-3.8 1 1.01-3.7-.23-.38a9.55 9.55 0 0 1-1.47-5.09c0-5.29 4.31-9.6 9.61-9.6 2.56 0 4.97 1 6.79 2.82a9.53 9.53 0 0 1 2.81 6.78c0 5.3-4.31 9.61-9.6 9.61Zm5.27-7.19c-.29-.14-1.71-.85-1.98-.94-.27-.1-.46-.14-.65.14-.19.29-.75.94-.92 1.13-.17.19-.34.22-.63.07-.29-.14-1.21-.44-2.31-1.42-.85-.76-1.43-1.7-1.6-1.99-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.5.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.65-1.57-.9-2.15-.24-.57-.48-.5-.65-.5h-.56c-.19 0-.5.07-.76.36-.26.29-1 1-1 2.42 0 1.43 1.03 2.8 1.17 3 .14.19 2.03 3.1 4.93 4.35.69.3 1.22.48 1.64.61.69.22 1.31.19 1.81.11.55-.08 1.71-.7 1.95-1.37.24-.68.24-1.26.17-1.38-.07-.12-.26-.19-.55-.33Z"/></svg>
@@ -737,6 +949,80 @@
   } else {
     els.forEach(el=>el.classList.add('in'));
   }
+
+  // --- Achievements carousel: auto-scroll, infinite loop, touch + hover pause ---
+  const achievements = [
+    {src:'certs/participation-shine.jpg', alt:'Certificate of Participation, Shine For Jeevarathni, 2022', caption:'Shine For Jeevarathni — 2022'},
+    {src:'certs/noel-appreciation.jpg', alt:'NOEL Certificate of Appreciation, Christmas Charity Concert, 2022', caption:'NOEL Christmas Charity Concert — 2022'},
+    {src:'certs/sharadha-keyboard.jpg', alt:'Sharadha Kalakshetra Keyboard Performance Certificate, 2019', caption:'Sharadha Kalakshetra, Keyboard — 2019'},
+    {src:'certs/carol-winner.jpg', alt:'Christmas Carol Competition, 1st Place Winner, 2020', caption:'Christmas Carol Competition, 1st Place — 2020'}
+  ];
+
+  const achTrack = document.getElementById('achTrack');
+  const achCarousel = document.getElementById('achCarousel');
+
+  if(achTrack && achCarousel){
+    achTrack.innerHTML += achTrack.innerHTML; // duplicate once for seamless loop
+
+    let achHover = false, achTouching = false;
+    const achSpeed = 0.4;
+
+    function achStep(){
+      if(!achHover && !achTouching){
+        achCarousel.scrollLeft += achSpeed;
+        const singleSetWidth = achTrack.scrollWidth / 2;
+        if(achCarousel.scrollLeft >= singleSetWidth){
+          achCarousel.scrollLeft -= singleSetWidth;
+        }
+      }
+      requestAnimationFrame(achStep);
+    }
+    requestAnimationFrame(achStep);
+
+    achCarousel.addEventListener('mouseenter', ()=>{ achHover = true; });
+    achCarousel.addEventListener('mouseleave', ()=>{ achHover = false; });
+    achCarousel.addEventListener('touchstart', ()=>{ achTouching = true; }, {passive:true});
+    achCarousel.addEventListener('touchend', ()=>{ setTimeout(()=>{ achTouching = false; }, 1500); }, {passive:true});
+  }
+
+  // --- Lightbox ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  let achIndex = 0;
+
+  function openLightbox(i){
+    achIndex = i;
+    updateLightbox();
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function updateLightbox(){
+    const item = achievements[achIndex];
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.alt;
+    lightboxCaption.textContent = item.caption;
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function nextAch(){ achIndex = (achIndex + 1) % achievements.length; updateLightbox(); }
+  function prevAch(){ achIndex = (achIndex - 1 + achievements.length) % achievements.length; updateLightbox(); }
+
+  document.querySelectorAll('.ach-card[data-index]').forEach(card=>{
+    card.addEventListener('click', ()=> openLightbox(parseInt(card.dataset.index, 10)));
+  });
+  document.getElementById('lightboxClose')?.addEventListener('click', closeLightbox);
+  document.getElementById('lightboxNext')?.addEventListener('click', nextAch);
+  document.getElementById('lightboxPrev')?.addEventListener('click', prevAch);
+  lightbox?.addEventListener('click', (e)=>{ if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e)=>{
+    if(!lightbox || !lightbox.classList.contains('open')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowRight') nextAch();
+    if(e.key === 'ArrowLeft') prevAch();
+  });
 </script>
 
 </body>
